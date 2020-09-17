@@ -13,9 +13,16 @@ def index():
     db = get_db()
     response = requests.get("https://classic.warcraftlogs.com/v1/reports/guild/Released/Pagle/US?api_key=82e9648595b617cdc3806a8868249a8a")
     reports = response.json()
-    db.execute(
-        'INSERT INTO'
-    )
+
+    for report in reports
+        db.execute(
+            'INSERT INTO report (wcl_id, title, owner, start, end, zone)'
+            ' VALUES (?, ?, ?, ?, ?, ?)',
+            (report['id'], report['title'], report['owner'], report['starat'], report['end'], report['zone'])
+        )
+    db.commit()
+    return redirect(url_for('blog.index'))
+
 #    reports = db.execute(
 #        'SELECT *'
 #        ' FROM report'
