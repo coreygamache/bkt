@@ -36,6 +36,7 @@ def index():
         for fight in fights['fights']:
             if fight['boss'] != 0 and fight['kill'] == 'true':
                 if report['zone'] == 1000: # Molten Core
+                    print('mc')
                     if fight['boss'] == mc_boss_ids['lucifron']:
                         mc_fights['lucifron'].append(fight['end_time'] - fight['start_time'])
                     elif fight['boss'] == mc_boss_ids['magmadar']:
