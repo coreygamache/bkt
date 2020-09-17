@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Boss Kill Times{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% for report in reports %}
+    <article class="">
+      <header>
+        <div>
+          <h1>{{ report['title'] }}</h1>
+        </div>
+      </header>
+      <p class="body">report id: {{ report['id'] }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
