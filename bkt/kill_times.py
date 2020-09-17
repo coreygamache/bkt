@@ -44,6 +44,7 @@ def index():
                     print('mc')
                     if fight['boss'] == mc_boss_ids['lucifron']:
                         print('lucifron')
+                        print(fight['kill'])
                         mc_fights['lucifron'].append(fight['end_time'] - fight['start_time'])
                     elif fight['boss'] == mc_boss_ids['magmadar'] and fight['kill'] == 'true':
                         print('magmadar')
