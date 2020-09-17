@@ -33,8 +33,8 @@ def index():
         ' ORDER BY start DESC'
     ).fetchall()
 
-    reports = db.execute(
-        'SELECT wcl_id, datetime(start / 1000, \'unixepoch\', \'localtime\') AS start'
+    aq_reports = db.execute(
+        'SELECT wcl_id as id, title, datetime(start / 1000, \'unixepoch\', \'localtime\') AS start, zone'
         ' FROM report'
         ' WHERE zone = ?'
         ' ORDER BY start DESC',
@@ -47,4 +47,4 @@ def index():
 #        s, ms = divmod(report['end'], 1000)
 #        report['end'] = '%s.%03d' % (time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(s)), ms)
 
-    return render_template('kill_times/index.html', reports = reports)
+    return render_template('kill_times/index.html', reports = aq_reports)
