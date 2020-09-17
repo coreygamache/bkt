@@ -36,25 +36,25 @@ def index():
         for fight in fights['fights']:
             if fight['boss'] != 0 and fight['kill'] == "true":
                 if report['zone'] == 1000: # Molten Core
-                    if fight['boss'] == mc_boss_ids['lucifron']
+                    if fight['boss'] == mc_boss_ids['lucifron']:
                         mc_fights['lucifron'].append(fight['end_time'] - fight['start_time'])
-                    elif fight['boss'] == mc_boss_ids['magmadar']
+                    elif fight['boss'] == mc_boss_ids['magmadar']:
                         mc_fights['magmadar'].append(fight['end_time'] - fight['start_time'])
-                    elif fight['boss'] == mc_boss_ids['gehennas']
+                    elif fight['boss'] == mc_boss_ids['gehennas']:
                         mc_fights['gehennas'].append(fight['end_time'] - fight['start_time'])
-                    elif fight['boss'] == mc_boss_ids['garr']
+                    elif fight['boss'] == mc_boss_ids['garr']:
                         mc_fights['garr'].append(fight['end_time'] - fight['start_time'])
-                    elif fight['boss'] == mc_boss_ids['geddon']
+                    elif fight['boss'] == mc_boss_ids['geddon']:
                         mc_fights['geddon'].append(fight['end_time'] - fight['start_time'])
-                    elif fight['boss'] == mc_boss_ids['shazzrah']
+                    elif fight['boss'] == mc_boss_ids['shazzrah']:
                         mc_fights['shazzrah'].append(fight['end_time'] - fight['start_time'])
-                    elif fight['boss'] == mc_boss_ids['sulfuron']
+                    elif fight['boss'] == mc_boss_ids['sulfuron']:
                         mc_fights['sulfuron'].append(fight['end_time'] - fight['start_time'])
-                    elif fight['boss'] == mc_boss_ids['golemagg']
+                    elif fight['boss'] == mc_boss_ids['golemagg']:
                         mc_fights['golemagg'].append(fight['end_time'] - fight['start_time'])
-                    elif fight['boss'] == mc_boss_ids['domo']
+                    elif fight['boss'] == mc_boss_ids['domo']:
                         mc_fights['domo'].append(fight['end_time'] - fight['start_time'])
-                    elif fight['boss'] == mc_boss_ids['ragnaros']
+                    elif fight['boss'] == mc_boss_ids['ragnaros']:
                         mc_fights['ragnaros'].append(fight['end_time'] - fight['start_time'])
                 elif report['zone'] == 1002: # Blackwing Lair
                     print('bwl')
