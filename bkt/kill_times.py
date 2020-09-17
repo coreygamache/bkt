@@ -18,7 +18,7 @@ def index():
     # get reports from API
     response = requests.get("https://classic.warcraftlogs.com/v1/reports/guild/Released/Pagle/US?api_key=82e9648595b617cdc3806a8868249a8a")
     reports = response.json()
-    reports.reverse() # reports are ordered newest first so order must be reversed
+    # reports.reverse() # reports are ordered newest first so order must be reversed
 
     mc_boss_ids = {'lucifron':663, 'magmadar':664, 'gehennas':665, 'garr':666, 'geddon':667, 'shazzrah':668, 'sulfuron':669, 'golemagg':670, 'domo':671, 'ragnaros':672}
     bwl_boss_ids = {'razorgore':610, 'vael':611, 'broodlord':612, 'firemaw':613, 'ebonroc':614, 'flamegor':615, 'chromaggus':616, 'nefarian':617}
@@ -34,7 +34,7 @@ def index():
         fights = response.json()
 
         for fight in fights['fights']:
-            if fight['boss'] != 0 and fight['kill'] == "true":
+            if fight['boss'] != 0 and fight['kill'] == 'true':
                 if report['zone'] == 1000: # Molten Core
                     if fight['boss'] == mc_boss_ids['lucifron']:
                         mc_fights['lucifron'].append(fight['end_time'] - fight['start_time'])
@@ -56,6 +56,8 @@ def index():
                         mc_fights['domo'].append(fight['end_time'] - fight['start_time'])
                     elif fight['boss'] == mc_boss_ids['ragnaros']:
                         mc_fights['ragnaros'].append(fight['end_time'] - fight['start_time'])
+
+                    return render_template('kill_times/index.html', fights = mc_fights)
                 elif report['zone'] == 1002: # Blackwing Lair
                     print('bwl')
                 elif report['zone'] == 1005: # Temple of Ahn'Qiraj
