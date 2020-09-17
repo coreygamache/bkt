@@ -68,7 +68,7 @@ def index():
                     print('aq')
 
         i = i + 1
-        if i == 2:
+        if i == 3:
             break
 
 #    for report in reports:
