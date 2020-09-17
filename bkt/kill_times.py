@@ -12,17 +12,19 @@ bp = Blueprint('kill_times', __name__)
 @bp.route('/')
 def index():
     db = get_db()
-    response = requests.get("https://classic.warcraftlogs.com/v1/reports/guild/Released/Pagle/US?api_key=82e9648595b617cdc3806a8868249a8a")
-    reports = response.json()
 
-    for report in reports:
-        db.execute(
-            'INSERT INTO report (wcl_id, title, owner, start, end, zone)'
-            ' VALUES (?, ?, ?, ?, ?, ?)',
-            (report['id'], report['title'], report['owner'], report['start'], report['end'], report['zone'])
-        )
+    # get reports from API
+#    response = requests.get("https://classic.warcraftlogs.com/v1/reports/guild/Released/Pagle/US?api_key=82e9648595b617cdc3806a8868249a8a")
+#    reports = response.json()
 
-    db.commit()
+#    for report in reports:
+#        db.execute(
+#            'INSERT INTO report (wcl_id, title, owner, start, end, zone)'
+#            ' VALUES (?, ?, ?, ?, ?, ?)',
+#            (report['id'], report['title'], report['owner'], report['start'], report['end'], report['zone'])
+#        )
+
+#    db.commit()
 #    return redirect(url_for('kill_times.index'))
 
     reports = db.execute(
@@ -30,6 +32,12 @@ def index():
         ' FROM report'
         ' ORDER BY start DESC'
     ).fetchall()
+
+    aq_reports = db.execute(
+        'SELECT wcl_id'
+        ' FROM report'
+        ' '
+    )
 
 #    for report in reports:
 #        s, ms = divmod(report['start'], 1000)
