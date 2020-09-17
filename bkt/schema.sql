@@ -18,5 +18,4 @@ CREATE TABLE parse (
   end_time INTEGER NOT NULL,
   boss TEXT NOT NULL,
   name TEXT NOT NULL,
-  kill BOOLEAN
 );

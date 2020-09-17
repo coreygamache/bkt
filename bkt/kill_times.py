@@ -7,6 +7,8 @@ import requests
 import json
 import time
 
+api_key = '82e9648595b617cdc3806a8868249a8a'
+
 bp = Blueprint('kill_times', __name__)
 
 @bp.route('/')
@@ -14,31 +16,22 @@ def index():
     db = get_db()
 
     # get reports from API
-#    response = requests.get("https://classic.warcraftlogs.com/v1/reports/guild/Released/Pagle/US?api_key=82e9648595b617cdc3806a8868249a8a")
-#    reports = response.json()
+    response = requests.get("https://classic.warcraftlogs.com/v1/reports/guild/Released/Pagle/US?api_key=82e9648595b617cdc3806a8868249a8a")
+    reports = response.json()
 
-#    for report in reports:
-#        db.execute(
-#            'INSERT INTO report (wcl_id, title, owner, start, end, zone)'
-#            ' VALUES (?, ?, ?, ?, ?, ?)',
-#            (report['id'], report['title'], report['owner'], report['start'], report['end'], report['zone'])
-#        )
+    for report in reports
+        if report['zone'] == 1005
+            aq_reports.append(report)
 
-#    db.commit()
-#    return redirect(url_for('kill_times.index'))
+    for report in aq_reports
+        request_string = "https://classic.warcraftlogs.com/v1/report/fights/" + report['id'] + "?api_key=" + api_key
+        response = requests.get(request_string)
+        fights = response.json()
 
-    reports = db.execute(
-        'SELECT wcl_id AS id, title, datetime(start / 1000, \'unixepoch\', \'localtime\') AS start'
-        ' FROM report'
-        ' ORDER BY start DESC'
-    ).fetchall()
+        for fight in fights:
+            if fight['boss'] != 0 and fight['kill'] == "true"
+                aq_fights.append(fight)
 
-    aq_reports = db.execute(
-        'SELECT wcl_id as id, title, datetime(start / 1000, \'unixepoch\', \'localtime\') AS start, zone'
-        ' FROM report'
-        ' WHERE zone = 1005'
-        ' ORDER BY start DESC'
-    ).fetchall()
 
 #    for report in reports:
 #        s, ms = divmod(report['start'], 1000)
