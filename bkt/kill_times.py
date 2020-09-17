@@ -5,7 +5,7 @@ from werkzeug.exceptions import abort
 from bkt.db import get_db
 import requests
 import json
-import datetime
+import time
 
 bp = Blueprint('kill_times', __name__)
 
@@ -16,8 +16,10 @@ def index():
     reports = response.json()
 
     for report in reports:
-        report['start'] = datetime.datetime.fromtimestamp(report['start'] / 1000.0).strftime('%Y-%m-%d %H:%M:%S.%f')
-        report['end'] = datetime.datetime.fromtimestamp(report['end'] / 1000.0).strftime('%Y-%m-%d %H:%M:%S.%f')
+        s, ms = divmod(report['start'], 1000)
+        report['start'] = '%s.%03d' % (time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(s)), ms)
+        s, ms = divmod(report['end'], 1000)
+        report['end'] = '%s.%03d' % (time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(s)), ms)
 
     for report in reports:
         db.execute(
