@@ -46,7 +46,7 @@ def index():
                         print('lucifron')
                         print(fight['kill'])
                         mc_fights['lucifron'].append(fight['end_time'] - fight['start_time'])
-                    elif fight['boss'] == mc_boss_ids['magmadar'] and fight['kill'] == 'true':
+                    elif fight['boss'] == mc_boss_ids['magmadar'] and fight['kill'] == True:
                         print('magmadar')
                         mc_fights['magmadar'].append(fight['end_time'] - fight['start_time'])
                     elif fight['boss'] == mc_boss_ids['gehennas']:
