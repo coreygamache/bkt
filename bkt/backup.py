@@ -26,3 +26,34 @@
                     ' VALUES (?, ?, ?, ?, ?, ?)',
                     (report['id'], fight['start_time'], fight['end_time'], fight['boss'], fight['name'])
                 )
+
+
+
+
+
+
+
+INDEX
+
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Boss Kill Times{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% for report in reports %}
+    <article class="">
+      <header>
+        <div>
+          <h1>{{ report['title'] }}</h1>
+        </div>
+      </header>
+      <p class="body">report id: {{ report['id'] }}</p>
+      <p class="body">report date: {{ report['start'] }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

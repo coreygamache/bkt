@@ -5,15 +5,14 @@
 {% endblock %}
 
 {% block content %}
-  {% for report in reports %}
+  {% for kill_time in fights['lucifron'] %}
     <article class="">
       <header>
         <div>
           <h1>{{ report['title'] }}</h1>
         </div>
       </header>
-      <p class="body">report id: {{ report['id'] }}</p>
-      <p class="body">report date: {{ report['start'] }}</p>
+      <p class="body">kill time: {{ kill_time }}</p>
     </article>
     {% if not loop.last %}
       <hr>
