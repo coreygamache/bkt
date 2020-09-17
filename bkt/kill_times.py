@@ -39,7 +39,7 @@ def index():
         ' WHERE zone = ?'
         ' ORDER BY start DESC',
         (1005)
-    )
+    ).fetchall()
 
 #    for report in reports:
 #        s, ms = divmod(report['start'], 1000)
