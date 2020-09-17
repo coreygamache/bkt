@@ -5,14 +5,14 @@
 {% endblock %}
 
 {% block content %}
-  {% for kill_time in fights['lucifron'] %}
+  {% for fight in fights %}
     <article class="">
       <header>
         <div>
-          <h1>Lucifron Kill Time</h1>
+          <h1>Kill</h1>
         </div>
       </header>
-      <p class="body">kill time: {{ kill_time }}</p>
+      <p class="body">mob name: {{ fight['name'] }}</p>
     </article>
     {% if not loop.last %}
       <hr>
