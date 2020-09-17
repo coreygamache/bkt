@@ -29,9 +29,9 @@ def index():
     db.commit()
 #    return redirect(url_for('kill_times.index'))
 
-    reports = db.execute(
-        'SELECT title, start'
-        ' FROM report'
+#    reports = db.execute(
+#        'SELECT title, start'
+#        ' FROM report'
 #        ' ORDER BY start DESC'
-    ).fetchall()
+#    ).fetchall()
     return render_template('kill_times/index.html', reports = reports)
