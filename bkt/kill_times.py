@@ -26,15 +26,15 @@ def index():
 #    return redirect(url_for('kill_times.index'))
 
     reports = db.execute(
-        'SELECT wcl_id AS id, title, start'
+        'SELECT wcl_id AS id, title, datetime(start / 1000, \'unixepoch\', \'localtime\') AS start'
         ' FROM report'
         ' ORDER BY start DESC'
     ).fetchall()
 
-    for report in reports:
-        s, ms = divmod(report['start'], 1000)
-        report['start'] = '%s.%03d' % (time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(s)), ms)
-        s, ms = divmod(report['end'], 1000)
-        report['end'] = '%s.%03d' % (time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(s)), ms)
+#    for report in reports:
+#        s, ms = divmod(report['start'], 1000)
+#        report['start'] = '%s.%03d' % (time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(s)), ms)
+#        s, ms = divmod(report['end'], 1000)
+#        report['end'] = '%s.%03d' % (time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(s)), ms)
 
     return render_template('kill_times/index.html', reports = reports)
