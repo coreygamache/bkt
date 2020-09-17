@@ -10,10 +10,12 @@ bp = Blueprint('kill_times', __name__)
 
 @bp.route('/')
 def index():
-#    db = get_db()
+    db = get_db()
     response = requests.get("https://classic.warcraftlogs.com/v1/reports/guild/Released/Pagle/US?api_key=82e9648595b617cdc3806a8868249a8a")
-    json_reports = response.json()
-    reports = json_reports
+    reports = response.json()
+    db.execute(
+        'INSERT INTO'
+    )
 #    reports = db.execute(
 #        'SELECT *'
 #        ' FROM report'
