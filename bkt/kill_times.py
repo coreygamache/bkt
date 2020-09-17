@@ -56,8 +56,6 @@ def index():
                         mc_fights['domo'].append(fight['end_time'] - fight['start_time'])
                     elif fight['boss'] == mc_boss_ids['ragnaros']:
                         mc_fights['ragnaros'].append(fight['end_time'] - fight['start_time'])
-
-                    return render_template('kill_times/index.html', fights = mc_fights)
                 elif report['zone'] == 1002: # Blackwing Lair
                     print('bwl')
                 elif report['zone'] == 1005: # Temple of Ahn'Qiraj
