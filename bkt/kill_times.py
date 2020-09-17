@@ -19,6 +19,8 @@ def index():
     response = requests.get("https://classic.warcraftlogs.com/v1/reports/guild/Released/Pagle/US?api_key=82e9648595b617cdc3806a8868249a8a")
     reports = response.json()
 
+    aq_reports = list()
+
     for report in reports:
         if report['zone'] == 1005:
             aq_reports.append(report)
