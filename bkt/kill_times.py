@@ -29,6 +29,7 @@ def index():
         request_string = "https://classic.warcraftlogs.com/v1/report/fights/" + report['id'] + "?api_key=" + api_key
         response = requests.get(request_string)
         fights = response.json()
+        print(fights)
 
         for fight in fights:
             if fight['boss'] != 0 and fight['kill'] == "true":
