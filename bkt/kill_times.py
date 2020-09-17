@@ -77,4 +77,4 @@ def index():
 #        s, ms = divmod(report['end'], 1000)
 #        report['end'] = '%s.%03d' % (time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(s)), ms)
 
-    return render_template('kill_times/index.html', fights = fights['fights'])
+    return render_template('kill_times/index.html', fights = mc_fights)
