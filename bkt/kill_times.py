@@ -34,7 +34,7 @@ def index():
         fights = response.json()
 
         for fight in fights['fights']:
-            print('fight')
+            print(fight['id'])
             if fight['boss'] != 0 and fight['kill'] == 'true':
                 print('boss')
                 if report['zone'] == 1000: # Molten Core
@@ -63,6 +63,7 @@ def index():
                     print('bwl')
                 elif report['zone'] == 1005: # Temple of Ahn'Qiraj
                     print('aq')
+
         break
 
 #    for report in reports:
