@@ -58,7 +58,7 @@ def index():
                         mc_fights['ragnaros'].append(fight['end_time'] - fight['start_time'])
                 elif report['zone'] == 1002: # Blackwing Lair
                     print('bwl')
-                else report['zone'] == 1005: # Temple of Ahn'Qiraj
+                elif report['zone'] == 1005: # Temple of Ahn'Qiraj
                     print('aq')
 
 #    for report in reports:
