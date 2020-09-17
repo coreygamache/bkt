@@ -28,6 +28,8 @@ def index():
     bwl_fights = {'razorgore':list(), 'vael':list(), 'broodlord':list(), 'firemaw':list(), 'ebonroc':list(), 'flamegor':list(), 'chromaggus':list(), 'nefarian':list()}
     aq_fights = {'skeram':list(), 'bug_trio':list(), 'sartura':list(), 'fankriss':list(), 'viscidus':list(), 'huhuran':list(), 'twin_emps':list(), 'ouro':list(), 'cthun':list()}
 
+    i = 0
+
     for report in reports:
         request_string = "https://classic.warcraftlogs.com/v1/report/fights/" + report['id'] + "?api_key=" + api_key
         response = requests.get(request_string)
@@ -65,7 +67,9 @@ def index():
                 elif report['zone'] == 1005: # Temple of Ahn'Qiraj
                     print('aq')
 
-        break
+        i = i + 1
+        if i == 2:
+            break
 
 #    for report in reports:
 #        s, ms = divmod(report['start'], 1000)
