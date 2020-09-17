@@ -6,16 +6,16 @@ CREATE TABLE report (
   wcl_id TEXT NOT NULL,
   title TEXT NOT NULL,
   owner TEXT NOT NULL,
-  start TIMESTAMP(3) NOT NULL,
-  end TIMESTAMP(3) NOT NULL,
+  start INTEGER NOT NULL,
+  end INTEGER NOT NULL,
   zone INTEGER NOT NULL
 );
 
 CREATE TABLE parse (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   wcl_id INTEGER NOT NULL,
-  start_time TIMESTAMP(3) NOT NULL,
-  end_time TIMESTAMP(3) NOT NULL,
+  start_time INTEGER NOT NULL,
+  end_time INTEGER NOT NULL,
   boss TEXT NOT NULL,
   name TEXT NOT NULL,
   kill BOOLEAN
