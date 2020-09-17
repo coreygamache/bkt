@@ -36,9 +36,8 @@ def index():
     aq_reports = db.execute(
         'SELECT wcl_id as id, title, datetime(start / 1000, \'unixepoch\', \'localtime\') AS start, zone'
         ' FROM report'
-#        ' WHERE zone = ?'
+        ' WHERE zone = 1005'
         ' ORDER BY start DESC'
-#        (1005)
     ).fetchall()
 
 #    for report in reports:
