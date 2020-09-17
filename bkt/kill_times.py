@@ -26,9 +26,9 @@ def index():
 #    return redirect(url_for('kill_times.index'))
 
     reports = db.execute(
-        'SELECT wcl_id AS id, title, start'
+        'SELECT wcl_id AS id, title, strftime(start / 1000, \'unixepoch\') AS start'
         ' FROM report'
-#        ' ORDER BY start DESC'
+        ' ORDER BY start DESC'
     ).fetchall()
 
 #    for report in reports:
