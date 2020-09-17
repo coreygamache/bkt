@@ -20,6 +20,7 @@ def index():
     reports = response.json()
 
     aq_reports = list()
+    aq_fights = list()
 
     for report in reports:
         if report['zone'] == 1005:
@@ -31,7 +32,7 @@ def index():
         fights = response.json()
         print(fights)
 
-        for fight in fights:
+        for fight in fights['fights']:
             if fight['boss'] != 0 and fight['kill'] == "true":
                 aq_fights.append(fight)
 
