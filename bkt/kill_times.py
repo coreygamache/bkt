@@ -16,8 +16,8 @@ def index():
     reports = response.json()
 
     for report in reports:
-        report['start'] = datetime.datetime.fromtimestamp(report['start']).strftime('%Y-%m-%d %H:%M:%S.%f')
-        report['end'] = datetime.datetime.fromtimestamp(report['end']).strftime('%Y-%m-%d %H:%M:%S.%f')
+        report['start'] = datetime.datetime.fromtimestamp(report['start'] / 1000.0).strftime('%Y-%m-%d %H:%M:%S.%f')
+        report['end'] = datetime.datetime.fromtimestamp(report['end'] / 1000.0).strftime('%Y-%m-%d %H:%M:%S.%f')
 
     for report in reports:
         db.execute(
