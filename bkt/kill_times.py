@@ -32,6 +32,7 @@ def index():
         request_string = "https://classic.warcraftlogs.com/v1/report/fights/" + report['id'] + "?api_key=" + api_key
         response = requests.get(request_string)
         fights = response.json()
+        print(len(fights))
 
         for fight in fights['fights']:
             print(fight['id'])
