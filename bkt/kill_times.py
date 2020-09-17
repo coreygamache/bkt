@@ -42,9 +42,9 @@ def index():
                 print('boss')
                 if report['zone'] == 1000: # Molten Core
                     print('mc')
-                    if fight['boss'] == mc_boss_ids['lucifron'] and fight['kill'] == true:
+                    if fight['boss'] == mc_boss_ids['lucifron'] and fight['kill'] == 'true':
                         mc_fights['lucifron'].append(fight['end_time'] - fight['start_time'])
-                    elif fight['boss'] == mc_boss_ids['magmadar']:
+                    elif fight['boss'] == mc_boss_ids['magmadar'] and fight['kill'] == 'true':
                         mc_fights['magmadar'].append(fight['end_time'] - fight['start_time'])
                     elif fight['boss'] == mc_boss_ids['gehennas']:
                         mc_fights['gehennas'].append(fight['end_time'] - fight['start_time'])
