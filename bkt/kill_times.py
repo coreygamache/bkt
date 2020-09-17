@@ -22,13 +22,18 @@ def index():
 
     mc_boss_ids = {'lucifron':663, 'magmadar':664, 'gehennas':665, 'garr':666, 'geddon':667, 'shazzrah':668, 'sulfuron':669, 'golemagg':670, 'domo':671, 'ragnaros':672}
     bwl_boss_ids = {'razorgore':610, 'vael':611, 'broodlord':612, 'firemaw':613, 'ebonroc':614, 'flamegor':615, 'chromaggus':616, 'nefarian':617}
-    aq_boss_ids = aq_fights = {'skeram':709, 'bug_trio':710, 'sartura':711, 'fankriss':712, 'viscidus':713, 'huhuran':714, 'twin_emps':715, 'ouro':716, 'cthun':717}
+    aq_boss_ids = {'skeram':709, 'bug_trio':710, 'sartura':711, 'fankriss':712, 'viscidus':713, 'huhuran':714, 'twin_emps':715, 'ouro':716, 'cthun':717}
 
     mc_fights = {'lucifron':list(), 'magmadar':list(), 'gehennas':list(), 'garr':list(), 'geddon':list(), 'shazzrah':list(), 'sulfuron':list(), 'golemagg':list(), 'domo':list(), 'ragnaros':list()}
     bwl_fights = {'razorgore':list(), 'vael':list(), 'broodlord':list(), 'firemaw':list(), 'ebonroc':list(), 'flamegor':list(), 'chromaggus':list(), 'nefarian':list()}
     aq_fights = {'skeram':list(), 'bug_trio':list(), 'sartura':list(), 'fankriss':list(), 'viscidus':list(), 'huhuran':list(), 'twin_emps':list(), 'ouro':list(), 'cthun':list()}
 
     for report in reports:
+
+        # skip reports that aren't MC, BWL, or AQ40
+        if report['zone'] != 1000 and report['zone'] != 1002 and report['zone'] != 1005:
+            continue
+
         request_string = "https://classic.warcraftlogs.com/v1/report/fights/" + report['id'] + "?api_key=" + api_key
         response = requests.get(request_string)
         fights = response.json()
@@ -57,9 +62,44 @@ def index():
                     elif fight['boss'] == mc_boss_ids['ragnaros']:
                         mc_fights['ragnaros'].append(fight['end_time'] - fight['start_time'])
                 elif report['zone'] == 1002: # Blackwing Lair
-                    print('bwl')
+                    if fight['boss'] == bwl_boss_ids['razorgore']:
+                        bwl_fights['razorgore'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == bwl_boss_ids['vael']:
+                        bwl_fights['vael'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == bwl_boss_ids['broodlord']:
+                        bwl_fights['broodlord'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == bwl_boss_ids['firemaw']:
+                        bwl_fights['firemaw'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == bwl_boss_ids['ebonroc']:
+                        bwl_fights['ebonroc'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == bwl_boss_ids['flamegor']:
+                        bwl_fights['flamegor'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == bwl_boss_ids['chromaggus']:
+                        bwl_fights['chromaggus'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == bwl_boss_ids['nefarian']:
+                        bwl_fights['nefarian'].append(fight['end_time'] - fight['start_time'])
                 elif report['zone'] == 1005: # Temple of Ahn'Qiraj
-                    print('aq')
+                    if fight['boss'] == aq_boss_ids['skeram']:
+                        aq_fights['skeram'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == aq_boss_ids['bug_trio']:
+                        aq_fights['bug_trio'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == aq_boss_ids['sartura']:
+                        aq_fights['sartura'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == aq_boss_ids['fankriss']:
+                        aq_fights['fankriss'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == aq_boss_ids['viscidus']:
+                        aq_fights['viscidus'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == aq_boss_ids['huhuran']:
+                        aq_fights['huhuran'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == aq_boss_ids['twin_emps']:
+                        aq_fights['twin_emps'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == aq_boss_ids['ouro']:
+                        aq_fights['ouro'].append(fight['end_time'] - fight['start_time'])
+                    elif fight['boss'] == aq_boss_ids['cthun']:
+                        aq_fights['cthun'].append(fight['end_time'] - fight['start_time'])
+
+    # predict next boss kill times
+
 
 #    for report in reports:
 #        s, ms = divmod(report['start'], 1000)
@@ -67,4 +107,4 @@ def index():
 #        s, ms = divmod(report['end'], 1000)
 #        report['end'] = '%s.%03d' % (time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(s)), ms)
 
-    return render_template('kill_times/index.html', fights = mc_fights)
+    return render_template('kill_times/index.html', fights = aq_fights)
