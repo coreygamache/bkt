@@ -25,7 +25,7 @@ def index():
 #    return redirect(url_for('kill_times.index'))
 
     reports = db.execute(
-        'SELECT *'
+        'SELECT title, start'
         ' FROM report'
 #        ' ORDER BY start DESC'
     ).fetchall()
