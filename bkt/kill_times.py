@@ -64,7 +64,7 @@ def index():
                 elif report['zone'] == 1005: # Temple of Ahn'Qiraj
                     print('aq')
 
-        break
+    break
 
 #    for report in reports:
 #        s, ms = divmod(report['start'], 1000)
