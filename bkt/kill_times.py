@@ -22,7 +22,7 @@ def index():
         )
 
     db.commit()
-    return redirect(url_for('blog.index'))
+    return redirect(url_for('kill_times.index'))
 
 #    reports = db.execute(
 #        'SELECT *'
