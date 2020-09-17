@@ -23,7 +23,7 @@ def index():
         db.execute(
             'INSERT INTO report (wcl_id, title, owner, start, end, zone)'
             ' VALUES (?, ?, ?, ?, ?, ?)',
-            (report['id'], report['title'], report['owner'], (strftime('%s',report['start'])), report['end'], report['zone'])
+            (report['id'], report['title'], report['owner'], report['start'], report['end'], report['zone'])
         )
 
     db.commit()
