@@ -6,8 +6,8 @@ CREATE TABLE report (
   wcl_id TEXT NOT NULL,
   title TEXT NOT NULL,
   owner TEXT NOT NULL,
-  start TIMESTAMP(3) NOT NULL,
-  end TIMESTAMP(3) NOT NULL,
+  start DATETIME(3) NOT NULL,
+  end DATETIME(3) NOT NULL,
   zone INTEGER NOT NULL
 );
 
