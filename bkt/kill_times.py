@@ -19,17 +19,17 @@ def index():
     response = requests.get("https://classic.warcraftlogs.com/v1/reports/guild/Released/Pagle/US?api_key=82e9648595b617cdc3806a8868249a8a")
     reports = response.json()
 
-    for report in reports
-        if report['zone'] == 1005
+    for report in reports:
+        if report['zone'] == 1005:
             aq_reports.append(report)
 
-    for report in aq_reports
+    for report in aq_reports:
         request_string = "https://classic.warcraftlogs.com/v1/report/fights/" + report['id'] + "?api_key=" + api_key
         response = requests.get(request_string)
         fights = response.json()
 
         for fight in fights:
-            if fight['boss'] != 0 and fight['kill'] == "true"
+            if fight['boss'] != 0 and fight['kill'] == "true":
                 aq_fights.append(fight)
 
 
