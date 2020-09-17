@@ -28,7 +28,7 @@ def index():
     reports = db.execute(
         'SELECT wcl_id AS id, title, start'
         ' FROM report'
-        ' ORDER BY start DESC'
+#        ' ORDER BY start DESC'
     ).fetchall()
 
 #    for report in reports:
