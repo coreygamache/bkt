@@ -18,7 +18,7 @@ def index():
     # get reports from API
     response = requests.get("https://classic.warcraftlogs.com/v1/reports/guild/Released/Pagle/US?api_key=82e9648595b617cdc3806a8868249a8a")
     reports = response.json()
-    # reports.reverse() # reports are ordered newest first so order must be reversed
+    reports.reverse() # reports are ordered newest first so order must be reversed
 
     mc_boss_ids = {'lucifron':663, 'magmadar':664, 'gehennas':665, 'garr':666, 'geddon':667, 'shazzrah':668, 'sulfuron':669, 'golemagg':670, 'domo':671, 'ragnaros':672}
     bwl_boss_ids = {'razorgore':610, 'vael':611, 'broodlord':612, 'firemaw':613, 'ebonroc':614, 'flamegor':615, 'chromaggus':616, 'nefarian':617}
@@ -28,24 +28,17 @@ def index():
     bwl_fights = {'razorgore':list(), 'vael':list(), 'broodlord':list(), 'firemaw':list(), 'ebonroc':list(), 'flamegor':list(), 'chromaggus':list(), 'nefarian':list()}
     aq_fights = {'skeram':list(), 'bug_trio':list(), 'sartura':list(), 'fankriss':list(), 'viscidus':list(), 'huhuran':list(), 'twin_emps':list(), 'ouro':list(), 'cthun':list()}
 
-    i = 0
-
     for report in reports:
         request_string = "https://classic.warcraftlogs.com/v1/report/fights/" + report['id'] + "?api_key=" + api_key
         response = requests.get(request_string)
         fights = response.json()
-        print(len(fights))
 
         for fight in fights['fights']:
-            print(fight['id'])
             if fight['boss'] != 0 and fight['kill'] == True:
-                print('boss')
                 if report['zone'] == 1000: # Molten Core
-                    print('mc')
                     if fight['boss'] == mc_boss_ids['lucifron']:
                         mc_fights['lucifron'].append(fight['end_time'] - fight['start_time'])
                     elif fight['boss'] == mc_boss_ids['magmadar']:
-                        print('magmadar')
                         mc_fights['magmadar'].append(fight['end_time'] - fight['start_time'])
                     elif fight['boss'] == mc_boss_ids['gehennas']:
                         mc_fights['gehennas'].append(fight['end_time'] - fight['start_time'])
@@ -67,10 +60,6 @@ def index():
                     print('bwl')
                 elif report['zone'] == 1005: # Temple of Ahn'Qiraj
                     print('aq')
-
-        i = i + 1
-        if i == 3:
-            break
 
 #    for report in reports:
 #        s, ms = divmod(report['start'], 1000)
