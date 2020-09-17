@@ -34,7 +34,9 @@ def index():
         fights = response.json()
 
         for fight in fights['fights']:
+            print('fight')
             if fight['boss'] != 0 and fight['kill'] == 'true':
+                print('boss')
                 if report['zone'] == 1000: # Molten Core
                     print('mc')
                     if fight['boss'] == mc_boss_ids['lucifron']:
