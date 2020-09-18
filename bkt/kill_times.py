@@ -16,6 +16,15 @@ bp = Blueprint('kill_times', __name__)
 def exponential(x, a, b):
     return a * np.exp(b * x)
 
+def millis2string(millis):
+    millis = int(millis)
+    seconds = (millis / 1000) % 60
+    seconds = int(seconds)
+    minutes = (millis / (1000 * 60)) % 60
+    minutes = int(minutes)
+    time_string = minutes + ':' + seconds + '.' millis
+    return time_string
+
 @bp.route('/')
 def index():
 
@@ -117,7 +126,8 @@ def index():
     elif selected_raid == raid_ids['aq']:
         x_vals = np.linspace(1, len(aq_fights['cthun']), len(aq_fights['cthun']))
         pars, cov = pars, cov = curve_fit(exponential, x_vals, aq_fights['cthun'], [0, 0], bounds=(-np.inf, np.inf))
-        kill_time = exponential(len(x_vals) + 1, *pars) / 1000.0
+        kill_time = exponential(len(x_vals) + 1, *pars)
+        kill_time = millis2string(kill_time)
         data = {'boss':'C\'thun', 'kill_time':kill_time}
 
 #    for report in reports:
