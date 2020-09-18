@@ -1,3 +1,5 @@
+    db = get_db()
+
     for report in reports:
         db.execute(
             'INSERT INTO report (wcl_id, title, owner, start, end, zone)'

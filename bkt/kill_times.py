@@ -13,25 +13,31 @@ bp = Blueprint('kill_times', __name__)
 
 @bp.route('/')
 def index():
-    db = get_db()
+
+    # raid IDs
+    raid_ids = {'mc':1000, 'bwl':1002, 'aq':1005}
+
+    # raid boss IDs
+    mc_boss_ids = {'lucifron':663, 'magmadar':664, 'gehennas':665, 'garr':666, 'geddon':667, 'shazzrah':668, 'sulfuron':669, 'golemagg':670, 'domo':671, 'ragnaros':672}
+    bwl_boss_ids = {'razorgore':610, 'vael':611, 'broodlord':612, 'firemaw':613, 'ebonroc':614, 'flamegor':615, 'chromaggus':616, 'nefarian':617}
+    aq_boss_ids = {'skeram':709, 'bug_trio':710, 'sartura':711, 'fankriss':712, 'viscidus':713, 'huhuran':714, 'twin_emps':715, 'ouro':716, 'cthun':717}
+
+    # initialize fight lists
+    mc_fights = {'lucifron':list(), 'magmadar':list(), 'gehennas':list(), 'garr':list(), 'geddon':list(), 'shazzrah':list(), 'sulfuron':list(), 'golemagg':list(), 'domo':list(), 'ragnaros':list()}
+    bwl_fights = {'razorgore':list(), 'vael':list(), 'broodlord':list(), 'firemaw':list(), 'ebonroc':list(), 'flamegor':list(), 'chromaggus':list(), 'nefarian':list()}
+    aq_fights = {'skeram':list(), 'bug_trio':list(), 'sartura':list(), 'fankriss':list(), 'viscidus':list(), 'huhuran':list(), 'twin_emps':list(), 'ouro':list(), 'cthun':list()}
 
     # get reports from API
     response = requests.get("https://classic.warcraftlogs.com/v1/reports/guild/Released/Pagle/US?api_key=82e9648595b617cdc3806a8868249a8a")
     reports = response.json()
     reports.reverse() # reports are ordered newest first so order must be reversed
 
-    mc_boss_ids = {'lucifron':663, 'magmadar':664, 'gehennas':665, 'garr':666, 'geddon':667, 'shazzrah':668, 'sulfuron':669, 'golemagg':670, 'domo':671, 'ragnaros':672}
-    bwl_boss_ids = {'razorgore':610, 'vael':611, 'broodlord':612, 'firemaw':613, 'ebonroc':614, 'flamegor':615, 'chromaggus':616, 'nefarian':617}
-    aq_boss_ids = {'skeram':709, 'bug_trio':710, 'sartura':711, 'fankriss':712, 'viscidus':713, 'huhuran':714, 'twin_emps':715, 'ouro':716, 'cthun':717}
-
-    mc_fights = {'lucifron':list(), 'magmadar':list(), 'gehennas':list(), 'garr':list(), 'geddon':list(), 'shazzrah':list(), 'sulfuron':list(), 'golemagg':list(), 'domo':list(), 'ragnaros':list()}
-    bwl_fights = {'razorgore':list(), 'vael':list(), 'broodlord':list(), 'firemaw':list(), 'ebonroc':list(), 'flamegor':list(), 'chromaggus':list(), 'nefarian':list()}
-    aq_fights = {'skeram':list(), 'bug_trio':list(), 'sartura':list(), 'fankriss':list(), 'viscidus':list(), 'huhuran':list(), 'twin_emps':list(), 'ouro':list(), 'cthun':list()}
+    selected_raid = raid_ids['aq']
 
     for report in reports:
 
         # skip reports that aren't MC, BWL, or AQ40
-        if report['zone'] != 1000 and report['zone'] != 1002 and report['zone'] != 1005:
+        if report['zone'] != selected_raid:
             continue
 
         request_string = "https://classic.warcraftlogs.com/v1/report/fights/" + report['id'] + "?api_key=" + api_key
@@ -40,7 +46,7 @@ def index():
 
         for fight in fights['fights']:
             if fight['boss'] != 0 and fight['kill'] == True:
-                if report['zone'] == 1000: # Molten Core
+                if report['zone'] == raid_ids['mc']: # Molten Core
                     if fight['boss'] == mc_boss_ids['lucifron']:
                         mc_fights['lucifron'].append(fight['end_time'] - fight['start_time'])
                     elif fight['boss'] == mc_boss_ids['magmadar']:
@@ -61,7 +67,7 @@ def index():
                         mc_fights['domo'].append(fight['end_time'] - fight['start_time'])
                     elif fight['boss'] == mc_boss_ids['ragnaros']:
                         mc_fights['ragnaros'].append(fight['end_time'] - fight['start_time'])
-                elif report['zone'] == 1002: # Blackwing Lair
+                elif report['zone'] == raid_ids['bwl']: # Blackwing Lair
                     if fight['boss'] == bwl_boss_ids['razorgore']:
                         bwl_fights['razorgore'].append(fight['end_time'] - fight['start_time'])
                     elif fight['boss'] == bwl_boss_ids['vael']:
@@ -78,7 +84,7 @@ def index():
                         bwl_fights['chromaggus'].append(fight['end_time'] - fight['start_time'])
                     elif fight['boss'] == bwl_boss_ids['nefarian']:
                         bwl_fights['nefarian'].append(fight['end_time'] - fight['start_time'])
-                elif report['zone'] == 1005: # Temple of Ahn'Qiraj
+                elif report['zone'] == raid_ids['aq']: # Temple of Ahn'Qiraj
                     if fight['boss'] == aq_boss_ids['skeram']:
                         aq_fights['skeram'].append(fight['end_time'] - fight['start_time'])
                     elif fight['boss'] == aq_boss_ids['bug_trio']:
