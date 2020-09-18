@@ -117,8 +117,8 @@ def index():
     elif selected_raid == raid_ids['aq']:
         x_vals = np.linspace(1, len(aq_fights['cthun']), len(aq_fights['cthun']))
         pars, cov = pars, cov = curve_fit(exponential, x_vals, aq_fights['cthun'], [0, 0], bounds=(-np.inf, np.inf))
-        kill_time = exponential(len(x_vals) + 1, *pars)
-        data = {'boss:':'C\'thun', 'kill_time':kill_time}
+        kill_time = exponential(len(x_vals) + 1, *pars) / 1000.0
+        data = {'boss':'C\'thun', 'kill_time':kill_time}
 
 #    for report in reports:
 #        s, ms = divmod(report['start'], 1000)
