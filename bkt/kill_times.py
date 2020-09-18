@@ -13,7 +13,7 @@ api_key = '82e9648595b617cdc3806a8868249a8a'
 
 bp = Blueprint('kill_times', __name__)
 
-def exponential(x, a, b)
+def exponential(x, a, b):
     return a * np.exp(b * x)
 
 @bp.route('/')
