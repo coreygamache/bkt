@@ -22,7 +22,7 @@ def millis2string(millis):
     seconds = int(seconds)
     minutes = (millis / (1000 * 60)) % 60
     minutes = int(minutes)
-    time_string = minutes + ':' + seconds + '.' + millis
+    time_string = str(minutes) + ':' + str(seconds) + '.' + str(millis)
     return time_string
 
 @bp.route('/')
