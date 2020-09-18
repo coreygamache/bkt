@@ -3,6 +3,8 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 from bkt.db import get_db
+from scipy.optimize import curve_fit
+import numpy as np
 import requests
 import json
 import time
@@ -10,6 +12,9 @@ import time
 api_key = '82e9648595b617cdc3806a8868249a8a'
 
 bp = Blueprint('kill_times', __name__)
+
+def exponential(x, a, b)
+    return a * np.exp(b * x)
 
 @bp.route('/')
 def index():
@@ -105,7 +110,15 @@ def index():
                         aq_fights['cthun'].append(fight['end_time'] - fight['start_time'])
 
     # predict next boss kill times
-
+    if selected_raid == raid_ids['mc']
+        fights = mc_fights
+    elif selected_raid == raid_ids['bwl']
+        fights = bwl_fights
+    elif selected_raid == raid_ids['aq']
+        x_vals = np.linspace(1, len(aq_fights['lucifron']), len(aq_fights['cthun']))
+        pars, cov = pars, cov = curve_fit(exponential, x_vals, aq_fights['cthun'], [0, 0], bounds=(-np.inf, np.inf))
+        kill_time = exponential(len(x_vals) + 1, *pars)
+        data = {'boss:':'C\'thun', 'kill_time':kill_time}
 
 #    for report in reports:
 #        s, ms = divmod(report['start'], 1000)
@@ -113,4 +126,4 @@ def index():
 #        s, ms = divmod(report['end'], 1000)
 #        report['end'] = '%s.%03d' % (time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(s)), ms)
 
-    return render_template('kill_times/index.html', fights = aq_fights)
+    return render_template('kill_times/index.html', data = data)
