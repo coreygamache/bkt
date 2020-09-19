@@ -30,7 +30,7 @@ def predict_kill_time(fights):
     y_vals = list()
     y_vals_dmf = list()
     for fight in fights:
-        if fight['dmf'] == False
+        if fight['dmf'] == False:
             y_vals.append(fight['end_time'] - fight['start_time'])
         else
             y_vals_dmf.append(fight['end_time'] - fight['start_time'])
