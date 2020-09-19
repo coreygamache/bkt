@@ -27,7 +27,9 @@ def millis2string(millis):
 
 # takes list of fight dict objects
 def predict_kill_time(fights):
-    y_vals = [(fight['start_time'] - fight['end_time']) for fight in fights]
+    y_vals = list()
+    for fight in fights
+        y_vals.append(fight['end_time'] - fight['start_time'])
     x_vals = np.linspace(1, len(y_vals), len(y_vals))
     pars, cov = pars, cov = curve_fit(exponential, x_vals, y_vals, [0, 0], bounds=(-np.inf, np.inf))
     kill_time = exponential(len(x_vals) + 1, *pars)
