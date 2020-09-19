@@ -47,7 +47,7 @@ def predict_kill_time(fights):
         pars, cov = curve_fit(exponential, x_vals, y_vals, [0, 0], bounds=(-np.inf, np.inf))
         kill_time = exponential(len(x_vals) + 1, *pars)
     elif len(x_vals) == 1:
-        kill_time = y_vals[1]
+        kill_time = y_vals[0]
     else:
         kill_time = 0
     kill_time = millis2string(kill_time)
@@ -57,7 +57,7 @@ def predict_kill_time(fights):
         pars, cov = curve_fit(exponential, x_vals_dmf, y_vals_dmf, [0, 0], bounds=(-np.inf, np.inf))
         kill_time_dmf = exponential(len(x_vals_dmf) + 1, *pars)
     elif len(x_vals_dmf) == 1:
-        kill_time_dmf = y_vals_dmf[1]
+        kill_time_dmf = y_vals_dmf[0]
     else:
         kill_time_dmf = 0
     kill_time_dmf = millis2string(kill_time_dmf)
