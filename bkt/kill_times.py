@@ -25,6 +25,16 @@ def millis2string(millis):
     time_string = str(minutes) + ':' + str(seconds) + '.' + str(millis)
     return time_string
 
+# takes list of fight dict objects
+def predict_kill_time(fights):
+    y_vals = [(fight['start_time'] - fight['end_time']) for fight in fights]
+    x_vals = np.linspace(1, len(y_vals), len(y_vals))
+    pars, cov = pars, cov = curve_fit(exponential, x_vals, y_vals, [0, 0], bounds=(-np.inf, np.inf))
+    kill_time = exponential(len(x_vals) + 1, *pars)
+    kill_time = millis2string(kill_time)
+    data = {'name':fights[0]['name'], 'kill_time':kill_time}
+    return data
+
 @bp.route('/')
 def index():
 
@@ -62,73 +72,94 @@ def index():
             if fight['boss'] != 0 and fight['kill'] == True:
                 if report['zone'] == raid_ids['mc']: # Molten Core
                     if fight['boss'] == mc_boss_ids['lucifron']:
-                        mc_fights['lucifron'].append(fight['end_time'] - fight['start_time'])
+                        mc_fights['lucifron'].append(fight)
                     elif fight['boss'] == mc_boss_ids['magmadar']:
-                        mc_fights['magmadar'].append(fight['end_time'] - fight['start_time'])
+                        mc_fights['magmadar'].append(fight)
                     elif fight['boss'] == mc_boss_ids['gehennas']:
-                        mc_fights['gehennas'].append(fight['end_time'] - fight['start_time'])
+                        mc_fights['gehennas'].append(fight)
                     elif fight['boss'] == mc_boss_ids['garr']:
-                        mc_fights['garr'].append(fight['end_time'] - fight['start_time'])
+                        mc_fights['garr'].append(fight)
                     elif fight['boss'] == mc_boss_ids['geddon']:
-                        mc_fights['geddon'].append(fight['end_time'] - fight['start_time'])
+                        mc_fights['geddon'].append(fight)
                     elif fight['boss'] == mc_boss_ids['shazzrah']:
-                        mc_fights['shazzrah'].append(fight['end_time'] - fight['start_time'])
+                        mc_fights['shazzrah'].append(fight)
                     elif fight['boss'] == mc_boss_ids['sulfuron']:
-                        mc_fights['sulfuron'].append(fight['end_time'] - fight['start_time'])
+                        mc_fights['sulfuron'].append(fight)
                     elif fight['boss'] == mc_boss_ids['golemagg']:
-                        mc_fights['golemagg'].append(fight['end_time'] - fight['start_time'])
+                        mc_fights['golemagg'].append(fight)
                     elif fight['boss'] == mc_boss_ids['domo']:
-                        mc_fights['domo'].append(fight['end_time'] - fight['start_time'])
+                        mc_fights['domo'].append(fight)
                     elif fight['boss'] == mc_boss_ids['ragnaros']:
-                        mc_fights['ragnaros'].append(fight['end_time'] - fight['start_time'])
+                        mc_fights['ragnaros'].append(fight)
                 elif report['zone'] == raid_ids['bwl']: # Blackwing Lair
                     if fight['boss'] == bwl_boss_ids['razorgore']:
-                        bwl_fights['razorgore'].append(fight['end_time'] - fight['start_time'])
+                        bwl_fights['razorgore'].append(fight)
                     elif fight['boss'] == bwl_boss_ids['vael']:
-                        bwl_fights['vael'].append(fight['end_time'] - fight['start_time'])
+                        bwl_fights['vael'].append(fight)
                     elif fight['boss'] == bwl_boss_ids['broodlord']:
-                        bwl_fights['broodlord'].append(fight['end_time'] - fight['start_time'])
+                        bwl_fights['broodlord'].append(fight)
                     elif fight['boss'] == bwl_boss_ids['firemaw']:
-                        bwl_fights['firemaw'].append(fight['end_time'] - fight['start_time'])
+                        bwl_fights['firemaw'].append(fight)
                     elif fight['boss'] == bwl_boss_ids['ebonroc']:
-                        bwl_fights['ebonroc'].append(fight['end_time'] - fight['start_time'])
+                        bwl_fights['ebonroc'].append(fight)
                     elif fight['boss'] == bwl_boss_ids['flamegor']:
-                        bwl_fights['flamegor'].append(fight['end_time'] - fight['start_time'])
+                        bwl_fights['flamegor'].append(fight)
                     elif fight['boss'] == bwl_boss_ids['chromaggus']:
-                        bwl_fights['chromaggus'].append(fight['end_time'] - fight['start_time'])
+                        bwl_fights['chromaggus'].append(fight)
                     elif fight['boss'] == bwl_boss_ids['nefarian']:
-                        bwl_fights['nefarian'].append(fight['end_time'] - fight['start_time'])
+                        bwl_fights['nefarian'].append(fight)
                 elif report['zone'] == raid_ids['aq']: # Temple of Ahn'Qiraj
                     if fight['boss'] == aq_boss_ids['skeram']:
-                        aq_fights['skeram'].append(fight['end_time'] - fight['start_time'])
+                        aq_fights['skeram'].append(fight)
                     elif fight['boss'] == aq_boss_ids['bug_trio']:
-                        aq_fights['bug_trio'].append(fight['end_time'] - fight['start_time'])
+                        aq_fights['bug_trio'].append(fight)
                     elif fight['boss'] == aq_boss_ids['sartura']:
-                        aq_fights['sartura'].append(fight['end_time'] - fight['start_time'])
+                        aq_fights['sartura'].append(fight)
                     elif fight['boss'] == aq_boss_ids['fankriss']:
-                        aq_fights['fankriss'].append(fight['end_time'] - fight['start_time'])
+                        aq_fights['fankriss'].append(fight)
                     elif fight['boss'] == aq_boss_ids['viscidus']:
-                        aq_fights['viscidus'].append(fight['end_time'] - fight['start_time'])
+                        aq_fights['viscidus'].append(fight)
                     elif fight['boss'] == aq_boss_ids['huhuran']:
-                        aq_fights['huhuran'].append(fight['end_time'] - fight['start_time'])
+                        aq_fights['huhuran'].append(fight)
                     elif fight['boss'] == aq_boss_ids['twin_emps']:
-                        aq_fights['twin_emps'].append(fight['end_time'] - fight['start_time'])
+                        aq_fights['twin_emps'].append(fight)
                     elif fight['boss'] == aq_boss_ids['ouro']:
-                        aq_fights['ouro'].append(fight['end_time'] - fight['start_time'])
+                        aq_fights['ouro'].append(fight)
                     elif fight['boss'] == aq_boss_ids['cthun']:
-                        aq_fights['cthun'].append(fight['end_time'] - fight['start_time'])
+                        aq_fights['cthun'].append(fight)
 
     # predict next boss kill times
+    data = list()
     if selected_raid == raid_ids['mc']:
-        fights = mc_fights
+        data.append(predict_kill_time(bwl_fights['lucifron']))
+        data.append(predict_kill_time(bwl_fights['magmadar']))
+        data.append(predict_kill_time(bwl_fights['gehennas']))
+        data.append(predict_kill_time(bwl_fights['garr']))
+        data.append(predict_kill_time(bwl_fights['geddon']))
+        data.append(predict_kill_time(bwl_fights['shazzrah']))
+        data.append(predict_kill_time(bwl_fights['sulfuron']))
+        data.append(predict_kill_time(bwl_fights['golemagg']))
+        data.append(predict_kill_time(bwl_fights['domo']))
+        data.append(predict_kill_time(bwl_fights['ragnaros']))
     elif selected_raid == raid_ids['bwl']:
-        fights = bwl_fights
+        data.append(predict_kill_time(bwl_fights['razorgore']))
+        data.append(predict_kill_time(bwl_fights['vael']))
+        data.append(predict_kill_time(bwl_fights['broodlord']))
+        data.append(predict_kill_time(bwl_fights['firemaw']))
+        data.append(predict_kill_time(bwl_fights['ebonroc']))
+        data.append(predict_kill_time(bwl_fights['flamegor']))
+        data.append(predict_kill_time(bwl_fights['chromaggus']))
+        data.append(predict_kill_time(bwl_fights['nefarian']))
     elif selected_raid == raid_ids['aq']:
-        x_vals = np.linspace(1, len(aq_fights['fankriss']), len(aq_fights['fankriss']))
-        pars, cov = pars, cov = curve_fit(exponential, x_vals, aq_fights['fankriss'], [0, 0], bounds=(-np.inf, np.inf))
-        kill_time = exponential(len(x_vals) + 1, *pars)
-        kill_time = millis2string(kill_time)
-        data = {'boss':'Fankriss', 'kill_time':kill_time}
+        data.append(predict_kill_time(aq_fights['skeram']))
+        data.append(predict_kill_time(aq_fights['bug_trio']))
+        data.append(predict_kill_time(aq_fights['sartura']))
+        data.append(predict_kill_time(aq_fights['fankriss']))
+        data.append(predict_kill_time(aq_fights['viscidus']))
+        data.append(predict_kill_time(aq_fights['huhuran']))
+        data.append(predict_kill_time(aq_fights['twin_emps']))
+        data.append(predict_kill_time(aq_fights['ouro']))
+        data.append(predict_kill_time(aq_fights['cthun']))
 
 #    for report in reports:
 #        s, ms = divmod(report['start'], 1000)
