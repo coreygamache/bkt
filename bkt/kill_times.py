@@ -67,7 +67,7 @@ def index():
             continue
 
         # check report for Darkmoon Faire buffs
-        request_string = "https://classic.warcraftlogs.com/v1/report/tables/buffs/" + report['id'] + "?start=0&end=999999999&abilityid=23768&api_key="" + api_key
+        request_string = "https://classic.warcraftlogs.com/v1/report/tables/buffs/" + report['id'] + "?start=0&end=999999999&abilityid=23768&api_key=" + api_key
         response = requests.get(request_string)
         buffs = response.json()
         dmf_buff = True if len(buffs['auras']) > 0 else False
