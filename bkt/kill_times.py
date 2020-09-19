@@ -38,12 +38,12 @@ def predict_kill_time(fights):
     x_vals_dmf = np.linspace(1, len(y_vals_dmf), len(y_vals_dmf))
 
     # predict normal kill time
-    pars, cov = pars, cov = curve_fit(exponential, x_vals, y_vals, [0, 0], bounds=(-np.inf, np.inf))
+    pars, cov = curve_fit(exponential, x_vals, y_vals, [0, 0], bounds=(-np.inf, np.inf))
     kill_time = exponential(len(x_vals) + 1, *pars)
     kill_time = millis2string(kill_time)
 
     # predict Darkmoon Faire buff week kill time
-    pars, cov = pars, cov = curve_fit(exponential, x_vals_dmf, y_vals_dmf, [0, 0], bounds=(-np.inf, np.inf))
+    pars, cov = curve_fit(exponential, x_vals_dmf, y_vals_dmf, [0, 0], bounds=(-np.inf, np.inf))
     kill_time_dmf = exponential(len(x_vals_dmf) + 1, *pars)
     kill_time_dmf = millis2string(kill_time_dmf)
 
