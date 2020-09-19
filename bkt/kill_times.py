@@ -32,7 +32,7 @@ def predict_kill_time(fights):
     for fight in fights:
         if fight['dmf'] == False:
             y_vals.append(fight['end_time'] - fight['start_time'])
-        else
+        else:
             y_vals_dmf.append(fight['end_time'] - fight['start_time'])
     x_vals = np.linspace(1, len(y_vals), len(y_vals))
     x_vals_dmf = np.linspace(1, len(y_vals_dmf), len(y_vals_dmf))
