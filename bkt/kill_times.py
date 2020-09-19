@@ -37,6 +37,11 @@ def predict_kill_time(fights):
     x_vals = np.linspace(1, len(y_vals), len(y_vals))
     x_vals_dmf = np.linspace(1, len(y_vals_dmf), len(y_vals_dmf))
 
+    print(x_vals)
+    print(x_vals_dmf)
+    print(y_vals)
+    print(y_vals_dmf)
+
     # predict normal kill time
     pars, cov = curve_fit(exponential, x_vals, y_vals, [0, 0], bounds=(-np.inf, np.inf))
     kill_time = exponential(len(x_vals) + 1, *pars)
