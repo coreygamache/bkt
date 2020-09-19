@@ -2,21 +2,47 @@
 
 {% block header %}
   <h1>{% block title %}Predicted Boss Kill Times{% endblock %}</h1>
+  <h3>{{ g.guild }} ({{ g.server }}-{{ g.region }}) <a class="change_options" href="{{ url_for('kill_times.options') }}">change</a></h3>
+  <form method="post">
+    <label for="raid_id">Raid</label>
+    <select name="raid_id" id="raid_id" required>
+      {% if g.zone == 1000 %}
+        <option value="1000" SELECTED>Molten Core</option>
+      {% else %}
+        <option value="1000">Molten Core</option>
+      {% endif %}
+      {% if g.zone == 1002 %}
+        <option value="1002" SELECTED>Blackwing Lair</option>
+      {% else %}
+        <option value="1002">Blackwing Lair</option>
+      {% endif %}
+      {% if g.zone == 1005 %}
+        <option value="1005" SELECTED>Temple of Ahn'Qiraj</option>
+      {% else %}
+        <option value="1005">Temple of Ahn'Qiraj</option>
+      {% endif %}
+    </select>
+    <input type="submit" value="Go">
+  </form>
 {% endblock %}
 
 {% block content %}
-  {% for boss in data %}
-    <article class="">
-      <header>
-        <div>
-          <h1>{{ boss['name'] }}</h1>
-        </div>
-      </header>
-      <p class="body">Predicted kill time: {{ boss['kill_time'] }}</p>
-      <p class="body">Predicted DMF kill time: {{ boss['kill_time_dmf'] }}</p>
-    </article>
-    {% if not loop.last %}
-      <hr>
-    {% endif %}
-  {% endfor %}
+  {% if g.zone != 0 %}
+    <div class="kill_time_table">
+      <table class="kill_times">
+        <tr>
+          <th class="boss_name">Boss</th>
+          <th class="kill_time">Normal</th>
+          <th class="kill_time_dmf">DMF Week</th>
+        </tr>
+        {% for boss in data %}
+          <tr>
+            <td class="boss_name">{{ boss['name'] }}</td>
+            <td class="kill_time">{{ boss['kill_time'] }}</td>
+            <td class="kill_time_dmf">{{ boss['kill_time_dmf'] }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  {% endif %}
 {% endblock %}

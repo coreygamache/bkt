@@ -1,0 +1,63 @@
+html {
+  background: black;
+  color: white;
+  font-family: Arial;
+}
+
+body {
+}
+
+h1, h2, h3, h4, h5, h6 {
+}
+
+a {
+  color: deepskyblue;
+  text-decoration: none;
+}
+
+a.change_options {
+  font-size: smaller;
+}
+
+table {
+  border-collapse: collapse;
+  border: 0;
+  width: auto;
+}
+
+table.kill_times {
+  min-width: 500px;
+}
+
+th {
+  border: 0px;
+  font-weight: bold;
+  text-align: center;
+}
+
+td {
+  border: 0px;
+  padding-bottom: 3px;
+  text-align: left
+}
+
+th.boss_name, td.boss_name {
+  width: 50%;
+}
+
+th.kill_time, th.kill_time_dmf, td.kill_time, td.kill_time_dmf {
+  text-align: center;
+  width: 25%;
+}
+
+td.option_label {
+  padding-right: 8px;
+}
+
+td.submit_button {
+  text-align: right;
+}
+
+div.kill_time_table {
+  padding-top: 2em;
+}

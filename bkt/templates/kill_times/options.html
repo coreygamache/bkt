@@ -6,14 +6,35 @@
 
 {% block content %}
   <form method="post">
-    <label for="api_key">API Key</label>
-    <input name="api_key" id="api_key" required>
-    <label for="raid_id">Raid</label>
-    <select name="raid_id" id="raid_id" required>
-      <option value="1000">Molten Core</option>
-      <option value="1002">Blackwing Lair</option>
-      <option value="1005">Temple of Ahn'Qiraj</option>
-    </select>
-    <input type="submit" value="Go">
+    <table>
+      <tr>
+        <td class="option_label"><label for="api_key">API Key</label></td>
+        <td><input name="api_key" id="api_key" value="82e9648595b617cdc3806a8868249a8a" required></td>
+      </tr>
+      <tr>
+        <td class="option_label"><label for="Guild">Guild</label></td>
+        <td><input name="guild" id="guild" value="Released" required></td>
+      </tr>
+      <tr>
+        <td class="option_label"><label for="server">Server</label></td>
+        <td><input name="server" id="server" value="Pagle" required></td>
+      </tr>
+      <tr>
+        <td class="option_label"><label for="region">Region</label></td>
+        <td>
+          <select name="region" id="region" required>
+            <option value="US" SELECTED>US</option>
+            <option value="EU">EU</option>
+            <option value="CN">CN</option>
+            <option value="TW">TW</option>
+            <option value="KR">KR</option>
+          </select><br>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="submit_button"><input type="submit" value="Go"></td>
+      </tr>
+    </table>
   </form>
 {% endblock %}
