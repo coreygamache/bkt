@@ -43,13 +43,19 @@ def predict_kill_time(fights):
     print(y_vals_dmf)
 
     # predict normal kill time
-    pars, cov = curve_fit(exponential, x_vals, y_vals, [0, 0], bounds=(-np.inf, np.inf))
-    kill_time = exponential(len(x_vals) + 1, *pars)
+    if len(x_vals) > 1:
+        pars, cov = curve_fit(exponential, x_vals, y_vals, [0, 0], bounds=(-np.inf, np.inf))
+        kill_time = exponential(len(x_vals) + 1, *pars)
+    else:
+        kill_time = y_vals[1]
     kill_time = millis2string(kill_time)
 
     # predict Darkmoon Faire buff week kill time
-    pars, cov = curve_fit(exponential, x_vals_dmf, y_vals_dmf, [0, 0], bounds=(-np.inf, np.inf))
-    kill_time_dmf = exponential(len(x_vals_dmf) + 1, *pars)
+    if len(x_vals_dmf) > 1:
+        pars, cov = curve_fit(exponential, x_vals_dmf, y_vals_dmf, [0, 0], bounds=(-np.inf, np.inf))
+        kill_time_dmf = exponential(len(x_vals_dmf) + 1, *pars)
+    else:
+        kill_time_dmf = y_vals_dmf[1]
     kill_time_dmf = millis2string(kill_time_dmf)
 
     data = {'name':fights[0]['name'], 'kill_time':kill_time, 'kill_time_dmf':kill_time_dmf}
@@ -94,9 +100,6 @@ def index():
         request_string = "https://classic.warcraftlogs.com/v1/report/fights/" + report['id'] + "?start=0&end=999999999&abilityid=23768&api_key=" + api_key
         response = requests.get(request_string)
         fights = response.json()
-
-        print(report['id'])
-        print(dmf_buff)
 
         for fight in fights['fights']:
             if fight['boss'] != 0 and fight['kill'] == True:
