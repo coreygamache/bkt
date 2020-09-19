@@ -19,7 +19,7 @@ def api_key_required(view):
     def wrapped_view(**kwargs):
         user_api_key = session.get('api_key')
         if user_api_key is None:
-            return redirect(url_for('options'))
+            return redirect(url_for('kill_times.options'))
 
         return view(**kwargs)
 
