@@ -19,10 +19,10 @@ def exponential(x, a, b):
 def millis2string(millis):
     millis = int(millis)
     seconds = (millis / 1000) % 60
-    seconds = int(seconds)
+    seconds = str(int(seconds)) if seconds >= 10 else '0' + str(int(seconds))
     minutes = (millis / (1000 * 60)) % 60
     minutes = int(minutes)
-    time_string = str(minutes) + ':' + str(seconds) + '.' + str(round(millis, 3))
+    time_string = str(minutes) + ':' + seconds
     return time_string
 
 # takes list of fight dict objects
