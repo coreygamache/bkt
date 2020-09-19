@@ -1,0 +1,3 @@
+graft bkt/static
+graft bkt/templates
+global-exclude *.pyc
