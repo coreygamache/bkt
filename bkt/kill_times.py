@@ -28,13 +28,26 @@ def millis2string(millis):
 # takes list of fight dict objects
 def predict_kill_time(fights):
     y_vals = list()
+    y_vals_dmf = list()
     for fight in fights:
-        y_vals.append(fight['end_time'] - fight['start_time'])
+        if fight['dmf'] == False
+            y_vals.append(fight['end_time'] - fight['start_time'])
+        else
+            y_vals_dmf.append(fight['end_time'] - fight['start_time'])
     x_vals = np.linspace(1, len(y_vals), len(y_vals))
+    x_vals_dmf = np.linspace(1, len(y_vals_dmf), len(y_vals_dmf))
+
+    # predict normal kill time
     pars, cov = pars, cov = curve_fit(exponential, x_vals, y_vals, [0, 0], bounds=(-np.inf, np.inf))
     kill_time = exponential(len(x_vals) + 1, *pars)
     kill_time = millis2string(kill_time)
-    data = {'name':fights[0]['name'], 'kill_time':kill_time}
+
+    # predict Darkmoon Faire buff week kill time
+    pars, cov = pars, cov = curve_fit(exponential, x_vals_dmf, y_vals_dmf, [0, 0], bounds=(-np.inf, np.inf))
+    kill_time_dmf = exponential(len(x_vals_dmf) + 1, *pars)
+    kill_time_dmf = millis2string(kill_time_dmf)
+
+    data = {'name':fights[0]['name'], 'kill_time':kill_time, 'kill_time_dmf':kill_time_dmf}
     return data
 
 @bp.route('/')
@@ -82,6 +95,7 @@ def index():
 
         for fight in fights['fights']:
             if fight['boss'] != 0 and fight['kill'] == True:
+                fight['dmf'] = dmf_buff # indicate whether fight happened on a Darkmoon Faire buff week
                 if report['zone'] == raid_ids['mc']: # Molten Core
                     if fight['boss'] == mc_boss_ids['lucifron']:
                         mc_fights['lucifron'].append(fight)
