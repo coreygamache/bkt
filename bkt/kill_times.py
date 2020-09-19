@@ -98,6 +98,7 @@ def options():
 
 # index view
 @bp.route('/')
+@api_key_required
 def index():
 
     # raid IDs
