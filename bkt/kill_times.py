@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from werkzeug.exceptions import abort
 from bkt.db import get_db
@@ -12,6 +12,18 @@ import time
 api_key = '82e9648595b617cdc3806a8868249a8a'
 
 bp = Blueprint('kill_times', __name__)
+
+# decorator function (requires api key to be entered, otherwise redirects to options page)
+def api_key_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        user_api_key = session.get('api_key')
+        if user_api_key is None:
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
 
 def exponential(x, a, b):
     return a * np.exp(b * x)
@@ -65,6 +77,26 @@ def predict_kill_time(fights):
     data = {'name':fights[0]['name'], 'kill_time':kill_time, 'kill_time_dmf':kill_time_dmf}
     return data
 
+# views
+
+# set options view
+@bp.route('/options', methods=('GET', 'POST'))
+def options():
+    if request.method == 'POST':
+        user_api_key = request.form['api_key']
+        raid_id = request.form['raid_id']
+
+        if user_api_key is None:
+            error = 'No API key entered.'
+
+        if error is None:
+            session.clear()
+            session['api_key'] = user_api_key
+            return redirect(url_for('index'))
+
+    return render_template('options.html')
+
+# index view
 @bp.route('/')
 def index():
 
