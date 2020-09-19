@@ -94,7 +94,7 @@ def options():
             session['api_key'] = user_api_key
             return redirect(url_for('index'))
 
-    return render_template('options.html')
+    return render_template('kill_times/options.html')
 
 # index view
 @bp.route('/')
