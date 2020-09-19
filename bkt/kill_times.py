@@ -46,16 +46,20 @@ def predict_kill_time(fights):
     if len(x_vals) > 1:
         pars, cov = curve_fit(exponential, x_vals, y_vals, [0, 0], bounds=(-np.inf, np.inf))
         kill_time = exponential(len(x_vals) + 1, *pars)
-    else:
+    elif len(x_vals) == 1:
         kill_time = y_vals[1]
+    else:
+        kill_time = 0
     kill_time = millis2string(kill_time)
 
     # predict Darkmoon Faire buff week kill time
     if len(x_vals_dmf) > 1:
         pars, cov = curve_fit(exponential, x_vals_dmf, y_vals_dmf, [0, 0], bounds=(-np.inf, np.inf))
         kill_time_dmf = exponential(len(x_vals_dmf) + 1, *pars)
-    else:
+    elif len(x_vals_dmf) == 1:
         kill_time_dmf = y_vals_dmf[1]
+    else:
+        kill_time_dmf = 0
     kill_time_dmf = millis2string(kill_time_dmf)
 
     data = {'name':fights[0]['name'], 'kill_time':kill_time, 'kill_time_dmf':kill_time_dmf}
