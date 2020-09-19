@@ -86,7 +86,7 @@ def index():
     reports = response.json()
     reports.reverse() # reports are ordered newest first so order must be reversed
 
-    selected_raid = raid_ids['aq']
+    selected_raid = raid_ids['bwl']
 
     for report in reports:
 
